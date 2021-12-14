@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+    zeebe:
+        image: camunda/zeebe:1.2.4
+        
+    test:
+        image: zeebe-message-aggregator
+        build: .
+        depends_on:
+            - zeebe
