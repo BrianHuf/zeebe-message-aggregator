@@ -32,17 +32,14 @@ def buffered(messages: List[str]):
 async def test():
     log.info("deploy processes")
     await client.deploy_process('consume_buffered.bpmn')
-    await client.deploy_process('consume_unbuffered.bpmn')
 
     log.info("send messages")
     NUM = 20
-    correlation_key = 'ck1'
-
     for i in range(NUM):
-        await asyncio.sleep(0.1)
+        correlation_key = f"ck{i%3}"
         log.info("send message %s of %s", i+1, NUM)
         await client.publish_message(name='test', correlation_key=correlation_key, variables={
-            'message': f'iteration #{i} at {datetime.now()}',
+            'message': f'iteration #{str(i).zfill(2)} {correlation_key} {datetime.now()}',
             'correlation_key': correlation_key,
         })
 

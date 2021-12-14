@@ -7,12 +7,10 @@ Details of note
 
 * Created messages must include a copy of the correlation_key in the variables section of the message
 * The Start Message event puts the content of the message into a List (i.e. messages)
-* The Intermediate Message event appends a message into a List (i.e. messages)
+* The Intermediate Message event appends a message with same the correlation key (ck) as the first (i.e. messages) 
 * An Exclusive Gateway will loop back if the length (count) of the list is less than X (3 is used for testing)
 * One the List grows to a sufficient size (3), a Script Task is executed for the entire list
 
-
-NOTE: an unbuffered process is running in parallel for purposes of testing
 
 ## Try for yourself
 ```
@@ -29,7 +27,6 @@ test_1   | send message 2 of 20
 test_1   | send message 3 of 20
 test_1   | send message 4 of 20
 test_1   | send message 5 of 20
-test_1   | unbuffered iteration #0 at 2021-12-14 02:50:45.136124
 test_1   | send message 6 of 20
 test_1   | send message 7 of 20
 test_1   | send message 8 of 20
@@ -38,21 +35,18 @@ test_1   | send message 10 of 20
 test_1   | send message 11 of 20
 test_1   | send message 12 of 20
 test_1   | send message 13 of 20
-test_1   | unbuffered iteration #1 at 2021-12-14 02:50:45.419802
 test_1   | send message 14 of 20
 test_1   | send message 15 of 20
+test_1   | buffered ['iteration #00 ck0 2021-12-14 03:57:37.222862', 'iteration #03 ck0 2021-12-14 03:57:38.069560', 'iteration #06 ck0 2021-12-14 03:57:39.753560']
 test_1   | send message 16 of 20
-test_1   | buffered ['iteration #0 at 2021-12-14 02:50:45.136124', 'iteration #1 at 2021-12-14 02:50:45.419802', 'iteration #2 at 2021-12-14 02:50:45.826908']
+test_1   | buffered ['iteration #01 ck1 2021-12-14 03:57:37.553215', 'iteration #04 ck1 2021-12-14 03:57:38.458341', 'iteration #07 ck1 2021-12-14 03:57:40.332719']
+test_1   | buffered ['iteration #02 ck2 2021-12-14 03:57:37.783867', 'iteration #05 ck2 2021-12-14 03:57:38.960581', 'iteration #08 ck2 2021-12-14 03:57:40.914448']
 test_1   | send message 17 of 20
 test_1   | send message 18 of 20
 test_1   | send message 19 of 20
 test_1   | send message 20 of 20
-test_1   | unbuffered iteration #2 at 2021-12-14 02:50:45.826908
-test_1   | unbuffered iteration #3 at 2021-12-14 02:50:46.156773
-test_1   | buffered ['iteration #3 at 2021-12-14 02:50:46.156773', 'iteration #4 at 2021-12-14 02:50:46.443655', 'iteration #5 at 2021-12-14 02:50:46.824981']
-test_1   | unbuffered iteration #4 at 2021-12-14 02:50:46.443655
-test_1   | unbuffered iteration #5 at 2021-12-14 02:50:46.824981
-test_1   | unbuffered iteration #6 at 2021-12-14 02:50:47.265940
-test_1   | buffered ['iteration #6 at 2021-12-14 02:50:47.265940', 'iteration #7 at 2021-12-14 02:50:47.677557', 'iteration #8 at 2021-12-14 02:50:48.014095']
+test_1   | buffered ['iteration #09 ck0 2021-12-14 03:57:41.449513', 'iteration #12 ck0 2021-12-14 03:57:43.114698', 'iteration #15 ck0 2021-12-14 03:57:44.929331']
+test_1   | buffered ['iteration #10 ck1 2021-12-14 03:57:41.921731', 'iteration #13 ck1 2021-12-14 03:57:43.641129', 'iteration #16 ck1 2021-12-14 03:57:45.446048']
+test_1   | buffered ['iteration #11 ck2 2021-12-14 03:57:42.482747', 'iteration #14 ck2 2021-12-14 03:57:44.304427', 'iteration #17 ck2 2021-12-14 03:57:45.972380']
 ...
 ```
