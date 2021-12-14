@@ -19,11 +19,6 @@ worker = ZeebeWorker(grpc_channel)
 client = ZeebeClient(grpc_channel)
 
 
-@worker.task(task_type='unbuffered')
-def unbuffered(message: str):
-    log.info("unbuffered %s", message)
-
-
 @worker.task(task_type='buffered')
 def buffered(messages: List[str]):
     log.info("buffered %s", messages)
